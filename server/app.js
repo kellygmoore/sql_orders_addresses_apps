@@ -38,15 +38,18 @@ app.get('/people', function(req,res){
 
 app.post('/thisaddress', function(req,res){
     var thisAddress = [];
-    var findAddress = {
-        id : req.body.id
-    };
+    //var findAddress = {
+    //    id : req.body.id
+    //};
 
-    console.log(findAddress.id);
+    var findAddress = req.body.id;
+
+    console.log(findAddress);
 
     pg.connect(connectionString, function(err, client, done){
+
         var query = client.query("SELECT users.name, addresses.* FROM users JOIN addresses ON users.id = addresses.user_id" +
-            " WHERE users.id = ($1)", [findAddress.id]);
+            " WHERE users.id = " + findAddress);
 
         query.on('row', function (row) {
             thisAddress.push(row);
@@ -60,6 +63,7 @@ app.post('/thisaddress', function(req,res){
         if (err) {
             console.log(err);
         }
+        console.log(query);
     });
     console.log(thisAddress);
 });

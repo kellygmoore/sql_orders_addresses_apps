@@ -45,6 +45,7 @@ myApp.controller('AddressController', ['$scope', '$http', function($scope, $http
         var empName = ($scope.selection);
         //var sendName = empName.name.name;
         $http.post('/thisaddress', empName).then(function(response){
+            console.log(response);
           $scope.thisAddressArray = response.data;
       })
     };
