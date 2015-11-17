@@ -17,10 +17,13 @@ myApp.config(["$routeProvider", function($routeProvider){
 
 
 myApp.controller('AddressController', ['$scope', '$http', function($scope, $http){
-    console.log("Address Controller");
+    console.log($scope.selection);
 
     $scope.info = {};
     $scope.employeeArray = [];
+    $scope.thisAddressArray = [];
+
+    var empName = $scope.selection;
 
     $scope.getEmployees = function(){
         $http.get('/people').then(function(response){
@@ -28,10 +31,11 @@ myApp.controller('AddressController', ['$scope', '$http', function($scope, $http
         });
     };
 
-
-    //$scope.data = {
-    //
-    //};
+    $scope.getThisAddress = function(empName){
+      $http.get('/thisaddress').then(function(response){
+          $scope.thisAddressArray = response.data;
+      })
+    };
 
     $scope.getEmployees();
 

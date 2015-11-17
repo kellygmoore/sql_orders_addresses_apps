@@ -31,6 +31,26 @@ app.get('/people', function(req,res){
     });
 });
 
+app.get('/thisaddress', function(req,res){
+    var thisAddress = [];
+
+    pg.connect(connectionString, function(err, client, done){
+        var query = client.query("SELECT users.name, addresses.* FROM users JOIN addresses ON users.id = addresses.user_id;")
+        query.on('row', function (row) {
+            thisAddress.push(row);
+        });
+
+        query.on('end', function () {
+            client.end();
+            return res.json(thisAddress);
+        });
+
+        if (err) {
+            console.log(err);
+        }
+    })
+});
+
 app.get("/*", function(req,res,next){
     var file = req.params[0] || "/assets/views/index.html";
     res.sendFile(path.join(__dirname, "./public/", file));
