@@ -1,13 +1,12 @@
-<div ng-controller="AddressController">
+<div ng-controller="OrderController">
     <div class="formDiv">
         <h3>Select Employee, Start Date, and End Date</h3>
         <form>
-            <select ng-model="selection.name" ng-options="employee.name for employee in employeeArray" value="{{employee.name}}">
-                <!--<option ng-repeat="employee in employeeArray" value="{{employee.name}}"> {{employee.name}}</option>-->
+            <select ng-model="selection" ng-options="employee.name for employee in employeeArray" value="{{employee.name}}">
                 <option value="">[select employee..]</option>
             </select>
-            <input type="text" ng-model="selection.datestart">
-            <input type="text" ng-model="selection.datestart">
+            <input type="date" id="startdate" ng-model="selected.datestart">
+            <input type="date" id="enddate" ng-model="selected.dateend">
             <button ng-click="getTheOrders()">Submit</button>
         </form>
 

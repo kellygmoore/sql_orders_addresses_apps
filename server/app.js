@@ -61,10 +61,20 @@ app.post('/thisaddress', function(req,res){
         if (err) {
             console.log(err);
         }
-        console.log(query);
+        //console.log(query);
     });
-    console.log(thisAddress);
+    //console.log(thisAddress);
 });
+
+app.post('/getposts', function(req,res){
+    console.log("Here is the request: ", req.body);
+    //console.log("Here is the response: ", res);
+    return res.json("Hello");
+});
+
+
+
+
 
 app.get("/*", function(req,res,next){
     var file = req.params[0] || "/assets/views/index.html";

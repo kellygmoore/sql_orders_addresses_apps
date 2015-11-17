@@ -15,10 +15,7 @@ myApp.config(["$routeProvider", function($routeProvider){
         })
 }]);
 
-
 myApp.controller('AddressController', ['$scope', '$http', function($scope, $http){
-
-
     $scope.info = {};
     $scope.employeeArray = [];
     $scope.thisAddressArray = [];
@@ -29,18 +26,6 @@ myApp.controller('AddressController', ['$scope', '$http', function($scope, $http
         });
     };
 
-    console.log($scope.selection);
-    //var empName = $scope.selection;
-
-    //$scope.clickButton = function(kittyFooFoo){
-    //    console.log(kittyFooFoo);
-    //    $http.post('/people', kittyFooFoo).then(function(response){
-    //        $scope.getPeople();
-    //        console.log(response);
-    //    });
-    //};
-
-
     $scope.getThisAddress = function(){
         var empName = ($scope.selection);
         //var sendName = empName.name.name;
@@ -49,7 +34,30 @@ myApp.controller('AddressController', ['$scope', '$http', function($scope, $http
           $scope.thisAddressArray = response.data;
       })
     };
-
     $scope.getEmployees();
+}]);
 
+myApp.controller('OrderController', ['$scope', '$http', function($scope, $http){
+    //$scope.orderArray = [];
+    $scope.thisOrderArray = [];
+    $scope.employeeArray = [];
+
+    $scope.getEmployees = function(){
+        $http.get('/people').then(function(response){
+            $scope.employeeArray = response.data;
+        });
+    };
+    //console.log($scope.selection);
+
+    $scope.getTheOrders = function(){
+        var getName = ($scope.selection);
+        var endDate = ($scope.selected.dateend);
+        var startDate = ($scope.selected.datestart);
+        console.log(getName, endDate, startDate);
+        $http.post('/getposts', getName, endDate, startDate).then(function(response){
+            console.log(response);
+            $scope.thisOrderArray = response.data;
+        })
+    };
+    $scope.getEmployees();
 }]);
