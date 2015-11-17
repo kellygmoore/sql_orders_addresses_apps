@@ -17,7 +17,7 @@ app.get('/people', function(req,res){
 
     //SQL Query > SELECT data from table
     pg.connect(connectionString, function (err, client, done) {
-        var query = client.query("SELECT users.name FROM users");
+        var query = client.query("SELECT users.* FROM users");
 
         query.on('row', function (row) {
             theseEmployees.push(row);
@@ -39,11 +39,15 @@ app.get('/people', function(req,res){
 app.post('/thisaddress', function(req,res){
     var thisAddress = [];
     var findAddress = {
-        "name" : req.body.name
+        id : req.body.id
     };
 
+    console.log(findAddress.id);
+
     pg.connect(connectionString, function(err, client, done){
-        var query = client.query("SELECT users.name, addresses.* FROM users JOIN addresses ON users.id = addresses.user_id;")
+        var query = client.query("SELECT users.name, addresses.* FROM users JOIN addresses ON users.id = addresses.user_id" +
+            " WHERE users.id = ($1)", [findAddress.id]);
+
         query.on('row', function (row) {
             thisAddress.push(row);
         });
@@ -56,7 +60,8 @@ app.post('/thisaddress', function(req,res){
         if (err) {
             console.log(err);
         }
-    })
+    });
+    console.log(thisAddress);
 });
 
 app.get("/*", function(req,res,next){

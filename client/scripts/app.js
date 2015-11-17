@@ -30,19 +30,19 @@ myApp.controller('AddressController', ['$scope', '$http', function($scope, $http
     };
 
     console.log($scope.selection);
-    var empName = $scope.selection;
+    //var empName = $scope.selection;
 
-    $scope.clickButton = function(kittyFooFoo){
-        console.log(kittyFooFoo);
-        $http.post('/people', kittyFooFoo).then(function(response){
-            $scope.getPeople();
-            console.log(response);
-        });
-    };
+    //$scope.clickButton = function(kittyFooFoo){
+    //    console.log(kittyFooFoo);
+    //    $http.post('/people', kittyFooFoo).then(function(response){
+    //        $scope.getPeople();
+    //        console.log(response);
+    //    });
+    //};
 
 
-    $scope.getThisAddress = function(empName){
-        console.log(empName.name.name);
+    $scope.getThisAddress = function(){
+        var empName = ($scope.selection);
         //var sendName = empName.name.name;
         $http.post('/thisaddress', empName).then(function(response){
           $scope.thisAddressArray = response.data;

@@ -3,11 +3,11 @@
     <div class="formDiv">
         <h3>Select Employee From List </h3>
         <form>
-            <select ng-model="selection.name" ng-options="employee.name for employee in employeeArray" value="{{employee.name}}">
+            <select ng-model="selection" ng-options="employee.name for employee in employeeArray" value="{{employee.name}}">
                 <!--<option ng-repeat="employee in employeeArray" value="{{employee.name}}"> {{employee.name}}</option>-->
                 <option value="">[select employee..]</option>
             </select>
-            <button ng-click="getThisAddress(selection)">Submit</button>
+            <button ng-click="getThisAddress()">Submit</button>
         </form>
 
     </div>
