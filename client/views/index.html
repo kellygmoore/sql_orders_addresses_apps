@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Challenge</title>
+    <link rel="stylesheet" type="text/css" href="/vendors/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/styles/style.css">
+    <!--scripts-->
+    <script type="text/javascript" src="/vendors/angular.min.js"></script>
+    <script type="text/javascript" src="/vendors/angular-route.min.js"></script>
+    <script type="text/javascript" src="/assets/scripts/app.min.js"></script>
+</head>
+<body>
+    <div class="container well">
+        <div ng-include="'/assets/views/templates/header.html'"></div>
+
+
+        <main ng-view></main>
+    </div>
+</body>
+</html>
