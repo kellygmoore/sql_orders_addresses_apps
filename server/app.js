@@ -68,12 +68,21 @@ app.post('/thisaddress', function(req,res){
 
 app.post('/getposts', function(req,res){
     var thisOrder = [];
-    //var findAddress = req.body.id;
-    console.log("Here is the request: ", req.body);
+    var findOrder = req.body.name.id;
+    //console.log("Here is the request: ", req.body);
 
     pg.connect(connectionString, function(err, client, done){
-console.log("SELECT * FROM orders WHERE order_date > " + req.body.datestart + " AND order_date < " + req.body.dateend);
-        var query = client.query("SELECT * FROM orders WHERE order_date > '" + req.body.datestart + "' AND order_date < '" + req.body.dateend + "';");
+//console.log("SELECT * FROM orders WHERE order_date > " + req.body.datestart + " AND order_date < " + req.body.dateend);
+        //var query = client.query("SELECT * FROM orders WHERE order_date > '" + req.body.datestart + "' AND order_date < '" + req.body.dateend + "';");
+
+        var query = client.query("SELECT users.name, addresses.*, orders.* " +
+        " FROM orders " +
+        " JOIN addresses " +
+        " ON addresses.address_id = orders.ship_address_id" +
+        " JOIN users " +
+        " ON users.id = addresses.user_id" + //<connected to which field?>
+        " WHERE orders.user_id = '" + findOrder + "' AND order_date > '" +
+            req.body.datestart + "' AND order_date < '" + req.body.dateend + "';");
 
         query.on('row', function (row) {
             thisOrder.push(row);
@@ -91,11 +100,7 @@ console.log("SELECT * FROM orders WHERE order_date > " + req.body.datestart + " 
     });
     //console.log(thisAddress);
 
-    //return res.json(thisOrder);
 });
-
-
-
 
 
 app.get("/*", function(req,res,next){

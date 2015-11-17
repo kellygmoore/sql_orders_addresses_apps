@@ -10,9 +10,16 @@
             <button ng-click="getTheOrders()">Submit</button>
         </form>
         <div ng-repeat="order in thisOrderArray">
-            <p>{{order}}</p>
-
+            <br>
+            <h4>Name: <span>{{order.name}}</span></h4>
+            <p>Address: {{order.address_type}}</p>
+            <p>{{order.address_street}}</p>
+            <p>{{order.address_city}}, {{order.address_state}}   {{order.address_zip}}</p><hr>
+            <p>Order Amount: {{order.amount | currency : symbol : fractionSize}}</p>
+            <p>Order Date: {{order.order_date}}</p><hr>
         </div>
-
+        <div>
+            <p>Total Sum: {{getTotal() | currency : symbol : fractionSize}}</p>
+        </div>
     </div>
 </div>

@@ -51,17 +51,24 @@ myApp.controller('OrderController', ['$scope', '$http', function($scope, $http){
     //console.log($scope.selection);
 
     $scope.getTheOrders = function(){
-        //var getName = ($scope.selection);
-        //var endDate = ($scope.selected.dateend);
-        //var startDate = ($scope.selected.datestart);
-        //console.log(getName, endDate, startDate);
+
         var hope = {};
         hope = $scope.selection;
-        console.log(hope);
+        console.log(hope.name);
         $http.post('/getposts', hope).then(function(response){
             console.log(response);
             $scope.thisOrderArray = response.data;
         })
     };
+
+    $scope.getTotal = function(){
+        console.log($scope.thisOrderArray.length);
+        var sum = 0;
+        for(var i = 0; i < $scope.thisOrderArray.length; i++){
+            sum += parseInt($scope.thisOrderArray[i].amount);
+        }
+        return sum;
+    };
+
     $scope.getEmployees();
 }]);
