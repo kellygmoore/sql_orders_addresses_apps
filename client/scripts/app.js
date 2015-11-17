@@ -17,13 +17,11 @@ myApp.config(["$routeProvider", function($routeProvider){
 
 
 myApp.controller('AddressController', ['$scope', '$http', function($scope, $http){
-    console.log($scope.selection);
+
 
     $scope.info = {};
     $scope.employeeArray = [];
     $scope.thisAddressArray = [];
-
-    var empName = $scope.selection;
 
     $scope.getEmployees = function(){
         $http.get('/people').then(function(response){
@@ -31,8 +29,22 @@ myApp.controller('AddressController', ['$scope', '$http', function($scope, $http
         });
     };
 
+    console.log($scope.selection);
+    var empName = $scope.selection;
+
+    $scope.clickButton = function(kittyFooFoo){
+        console.log(kittyFooFoo);
+        $http.post('/people', kittyFooFoo).then(function(response){
+            $scope.getPeople();
+            console.log(response);
+        });
+    };
+
+
     $scope.getThisAddress = function(empName){
-      $http.get('/thisaddress').then(function(response){
+        console.log(empName.name.name);
+        //var sendName = empName.name.name;
+        $http.post('/thisaddress', empName).then(function(response){
           $scope.thisAddressArray = response.data;
       })
     };

@@ -1,11 +1,16 @@
 var express = require("express");
 var app = express();
 var path = require('path');
+var bodyParser = require('body-parser');
 var pg = require('pg');
+
 
 var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/sql_solo_challenge_week6';
 
 app.set("port", process.env.PORT || 5000);
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({expanded: true}));
 
 app.get('/people', function(req,res){
     var theseEmployees = [];
@@ -31,8 +36,11 @@ app.get('/people', function(req,res){
     });
 });
 
-app.get('/thisaddress', function(req,res){
+app.post('/thisaddress', function(req,res){
     var thisAddress = [];
+    var findAddress = {
+        "name" : req.body.name
+    };
 
     pg.connect(connectionString, function(err, client, done){
         var query = client.query("SELECT users.name, addresses.* FROM users JOIN addresses ON users.id = addresses.user_id;")
