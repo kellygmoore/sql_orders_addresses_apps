@@ -12,6 +12,7 @@ app.set("port", process.env.PORT || 5000);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({expanded: true}));
 
+//get the names to populate the drop down list
 app.get('/people', function(req,res){
     var theseEmployees = [];
 
@@ -36,12 +37,9 @@ app.get('/people', function(req,res){
     });
 });
 
+//get the selected address
 app.post('/thisaddress', function(req,res){
     var thisAddress = [];
-    //var findAddress = {
-    //    id : req.body.id
-    //};
-
     var findAddress = req.body.id;
 
     console.log(findAddress);
