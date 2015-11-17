@@ -2,13 +2,17 @@
     <div class="formDiv">
         <h3>Select Employee, Start Date, and End Date</h3>
         <form>
-            <select ng-model="selection" ng-options="employee.name for employee in employeeArray" value="{{employee.name}}">
+            <select ng-model="selection.name" ng-options="employee.name for employee in employeeArray" value="{{employee.name}}">
                 <option value="">[select employee..]</option>
             </select>
-            <input type="date" id="startdate" ng-model="selected.datestart">
-            <input type="date" id="enddate" ng-model="selected.dateend">
+            <input type="date" id="startdate" ng-model="selection.datestart">
+            <input type="date" id="enddate" ng-model="selection.dateend">
             <button ng-click="getTheOrders()">Submit</button>
         </form>
+        <div ng-repeat="order in thisOrderArray">
+            <p>{{order}}</p>
+
+        </div>
 
     </div>
 </div>

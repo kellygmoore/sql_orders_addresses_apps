@@ -67,9 +67,31 @@ app.post('/thisaddress', function(req,res){
 });
 
 app.post('/getposts', function(req,res){
+    var thisOrder = [];
+    //var findAddress = req.body.id;
     console.log("Here is the request: ", req.body);
-    //console.log("Here is the response: ", res);
-    return res.json("Hello");
+
+    pg.connect(connectionString, function(err, client, done){
+console.log("SELECT * FROM orders WHERE order_date > " + req.body.datestart + " AND order_date < " + req.body.dateend);
+        var query = client.query("SELECT * FROM orders WHERE order_date > '" + req.body.datestart + "' AND order_date < '" + req.body.dateend + "';");
+
+        query.on('row', function (row) {
+            thisOrder.push(row);
+        });
+
+        query.on('end', function () {
+            client.end();
+            return res.json(thisOrder);
+        });
+
+        if (err) {
+            console.log(err);
+        }
+        console.log(query);
+    });
+    //console.log(thisAddress);
+
+    //return res.json(thisOrder);
 });
 
 

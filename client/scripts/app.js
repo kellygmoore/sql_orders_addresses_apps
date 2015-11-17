@@ -16,7 +16,7 @@ myApp.config(["$routeProvider", function($routeProvider){
 }]);
 
 myApp.controller('AddressController', ['$scope', '$http', function($scope, $http){
-    $scope.info = {};
+    $scope.selection = {};
     $scope.employeeArray = [];
     $scope.thisAddressArray = [];
 
@@ -39,6 +39,7 @@ myApp.controller('AddressController', ['$scope', '$http', function($scope, $http
 
 myApp.controller('OrderController', ['$scope', '$http', function($scope, $http){
     //$scope.orderArray = [];
+    $scope.selection = {};
     $scope.thisOrderArray = [];
     $scope.employeeArray = [];
 
@@ -50,11 +51,14 @@ myApp.controller('OrderController', ['$scope', '$http', function($scope, $http){
     //console.log($scope.selection);
 
     $scope.getTheOrders = function(){
-        var getName = ($scope.selection);
-        var endDate = ($scope.selected.dateend);
-        var startDate = ($scope.selected.datestart);
-        console.log(getName, endDate, startDate);
-        $http.post('/getposts', getName, endDate, startDate).then(function(response){
+        //var getName = ($scope.selection);
+        //var endDate = ($scope.selected.dateend);
+        //var startDate = ($scope.selected.datestart);
+        //console.log(getName, endDate, startDate);
+        var hope = {};
+        hope = $scope.selection;
+        console.log(hope);
+        $http.post('/getposts', hope).then(function(response){
             console.log(response);
             $scope.thisOrderArray = response.data;
         })
